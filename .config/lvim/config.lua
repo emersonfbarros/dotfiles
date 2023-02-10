@@ -14,7 +14,7 @@ lvim.format_on_save.enabled = true
 lvim.colorscheme = "rose-pine"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.relativenumber = true
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 200
 vim.opt.hlsearch = false
 vim.opt.infercase = true
 lvim.transparent_window = true
@@ -43,18 +43,18 @@ vim.keymap.set("v", "<M-d>", "\"_d")
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 local _, actions = pcall(require, "telescope.actions")
 lvim.builtin.telescope.defaults.mappings = {
-  -- for input mode
-  i = {
-    ["<C-j>"] = actions.move_selection_next,
-    ["<C-k>"] = actions.move_selection_previous,
-    ["<C-n>"] = actions.cycle_history_next,
-    ["<C-p>"] = actions.cycle_history_prev,
-  },
-  -- for normal mode
-  n = {
-    ["<C-j>"] = actions.move_selection_next,
-    ["<C-k>"] = actions.move_selection_previous,
-  },
+    -- for input mode
+    i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-n>"] = actions.cycle_history_next,
+        ["<C-p>"] = actions.cycle_history_prev,
+    },
+    -- for normal mode
+    n = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+    },
 }
 
 -- Change theme settings
@@ -64,13 +64,13 @@ lvim.builtin.telescope.defaults.mappings = {
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
-  name = "+Trouble",
-  r = { "<cmd>Trouble lsp_references<cr>", "References" },
-  f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
-  d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
-  q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
-  l = { "<cmd>Trouble loclist<cr>", "LocationList" },
-  w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
+    name = "+Trouble",
+    r = { "<cmd>Trouble lsp_references<cr>", "References" },
+    f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
+    d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
+    q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
+    l = { "<cmd>Trouble loclist<cr>", "LocationList" },
+    w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
 }
 lvim.builtin.which_key.mappings["u"] = { "<cmd>UndotreeShow<CR>", "Undotree" }
 lvim.builtin.which_key.mappings["F"] = { "<cmd>Git<CR>", "Fugitive" }
@@ -85,18 +85,18 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
-  "bash",
-  "c",
-  "javascript",
-  "json",
-  "lua",
-  "python",
-  "typescript",
-  "tsx",
-  "css",
-  "rust",
-  "java",
-  "yaml",
+    "bash",
+    "c",
+    "javascript",
+    "json",
+    "lua",
+    "python",
+    "typescript",
+    "tsx",
+    "css",
+    "rust",
+    "java",
+    "yaml",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -146,17 +146,17 @@ lvim.builtin.treesitter.highlight.enable = true
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  -- { command = "black", filetypes = { "python" } },
-  -- { command = "isort", filetypes = { "python" } },
-  {
-    -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-    command = "prettier",
-    ---@usage arguments to pass to the formatter
-    -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-    -- extra_args = { "--print-with", "100" },
-    ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-    filetypes = { "typescript", "typescriptreact", "javascript" },
-  },
+    -- { command = "black", filetypes = { "python" } },
+    -- { command = "isort", filetypes = { "python" } },
+    {
+        -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+        command = "prettier",
+        ---@usage arguments to pass to the formatter
+        -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+        -- extra_args = { "--print-with", "100" },
+        ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+        filetypes = { "typescript", "typescriptreact", "javascript" },
+    },
 }
 
 -- -- set additional linters
@@ -179,58 +179,58 @@ formatters.setup {
 
 -- Additional Plugins
 lvim.plugins = {
-  {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-  },
-
-  { "mbbill/undotree" },
-
-  {
-    "tpope/vim-fugitive",
-    cmd = {
-      "G",
-      "Git",
-      "Gdiffsplit",
-      "Gread",
-      "Gwrite",
-      "Ggrep",
-      "GMove",
-      "GDelete",
-      "GBrowse",
-      "GRemove",
-      "GRename",
-      "Glgrep",
-      "Gedit"
+    {
+        "folke/trouble.nvim",
+        cmd = "TroubleToggle",
     },
-    ft = { "fugitive" }
-  },
 
-  { "christoomey/vim-tmux-navigator" },
+    { "mbbill/undotree" },
 
-  {
-    "rose-pine/neovim",
-    as = "rose-pine",
-  },
+    {
+        "tpope/vim-fugitive",
+        cmd = {
+            "G",
+            "Git",
+            "Gdiffsplit",
+            "Gread",
+            "Gwrite",
+            "Ggrep",
+            "GMove",
+            "GDelete",
+            "GBrowse",
+            "GRemove",
+            "GRename",
+            "Glgrep",
+            "Gedit"
+        },
+        ft = { "fugitive" }
+    },
 
-  {
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup({ "css", "scss", "html", "javascript" }, {
-        RGB = true, -- #RGB hex codes
-        RRGGBB = true, -- #RRGGBB hex codes
-        RRGGBBAA = true, -- #RRGGBBAA hex codes
-        rgb_fn = true, -- CSS rgb() and rgba() functions
-        hsl_fn = true, -- CSS hsl() and hsla() functions
-        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-      })
-    end,
-  },
+    { "christoomey/vim-tmux-navigator" },
 
-  { "morhetz/gruvbox" },
+    {
+        "rose-pine/neovim",
+        as = "rose-pine",
+    },
 
-  { "ThePrimeagen/vim-be-good" },
+    {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+          require("colorizer").setup({ "css", "scss", "html", "javascript" }, {
+              RGB = true, -- #RGB hex codes
+              RRGGBB = true, -- #RRGGBB hex codes
+              RRGGBBAA = true, -- #RRGGBBAA hex codes
+              rgb_fn = true, -- CSS rgb() and rgba() functions
+              hsl_fn = true, -- CSS hsl() and hsla() functions
+              css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+              css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+          })
+        end,
+    },
+
+    { "morhetz/gruvbox" },
+
+    { "ThePrimeagen/vim-be-good" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
