@@ -88,13 +88,13 @@ input "type:keyboard" {
     bindsym $mod+i exec ~/.local/bin/rofi-wifi-menu.sh
     bindsym $mod+o exec rofi -show window
     bindsym $mod+p exec ~/.local/bin/rofi-powermenu.sh
+    bindsym $mod+m exec rofi -show calc -modi calc -no-show-match -no-sort
 
     # Start browser
     bindsym $mod+f exec env MOZ_ENABLE_WAYLAND=1 firefox
     bindsym $mod+z exec zoom
-    bindsym $mod+s exec /opt/google/chrome/google-chrome --profile-directory=Default --app-id=bgkaielhpleclkdfcmgehefddboeimpg --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto
+    bindsym $mod+s exec/usr/bin/slack --enable-features=WebRTCPipeWireCapturer -s --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto 
     bindsym $mod+d exec alacritty -e lf
-    bindsym $mod+m exec rofi -show calc -modi calc -no-show-match -no-sort
     bindsym $mod+w exec /opt/google/chrome/google-chrome --profile-directory=Default --app-id=hnpfjngllnobngcgfapefoaidbinmjnm --unity-launch %F --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto
     bindsym $mod+c exec alacritty -e lvim ~/.config/sway/config
     
@@ -256,7 +256,7 @@ bar {
     modifier Mod4
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while /home/emerson/.config/sway/swaybar/swaybar.sh; do sleep 5; done
+    status_command i3blocks
 
     colors {
         statusline #ffffff
