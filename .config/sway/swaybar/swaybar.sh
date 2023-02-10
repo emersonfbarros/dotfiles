@@ -68,4 +68,4 @@ else
     audio_active=''
 fi
 
-echo " $song_status $media_artist - $media_song |  $language | $network_active ($ping ms) | $audio_active $audio_volume% 󰃠 $brightness_level%| 󰃭 $date_and_week  $current_time"
+echo " $song_status $media_artist - $media_song | $network_active ($ping ms) | $audio_active $audio_volume% 󰃠 $brightness_level%| 󰃭 $date_and_week  $current_time"
