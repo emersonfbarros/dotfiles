@@ -3,6 +3,7 @@ set hidden true
 set ignorecase true
 set icons true
 set drawbox true
+set shell zsh
 
 # Custom Functions
 cmd mkdir ${{
