@@ -1,0 +1,6 @@
+#!/bin/bash
+
+resolution=$1
+link=$2
+
+nohup mpv --ytdl-format="bestvideo[height<=?$resolution]+bestaudio/best" "$link" >/dev/null 2>&1 &

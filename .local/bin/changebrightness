@@ -1,0 +1,23 @@
+#!/bin/bash
+
+send_notification() {
+  BRIGHTNESS=$(brightnessctl | sed -En 's/.*\(([0-9]+)%\).*/\1/p')
+  dunstify "Brightness: $BRIGHTNESS%" -h int:value:$BRIGHTNESS -u normal -i "brightness" -t 2000 -r 6428
+}
+
+case $1 in
+up)
+  brightnessctl set 5%+
+  send_notification
+  ;;
+down)
+  CURR_BRIGHTNESS=$(brightnessctl | sed -En 's/.*\(([0-9]+)%\).*/\1/p')
+  if [[ $CURR_BRIGHTNESS -gt 5 ]]
+    then
+      brightnessctl set 5%-
+      send_notification
+    else
+      send_notification
+  fi
+  ;;
+esac

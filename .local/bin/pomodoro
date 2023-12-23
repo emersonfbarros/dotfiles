@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# Author: https://github.com/emersonfbarros 
+# Script inspired by bashbunni's pomodoro cli: https://gist.github.com/bashbunni/3880e4194e3f800c4c494de286ebc1d7
+# Requires https://github.com/caarlos0/timer, https://github.com/dunst-project/dunst and https://pipewire.org/ to be installed
+# Requires icon and audio in ~/.local/share/pomodoro-assets to work correctly
+
+WORK_DURATION=${1:-25}
+SHORT_BREAK_DURATION=${2:-5}
+LONG_BREAK_DURATION=${3:-20}
+ASSETS=~/.local/share/pomodoro-assets
+
+pomodoro() {
+  while true
+  do
+    dunstify "Starting Pomodoro, focus and start work!!!" -i $ASSETS/clock-icon.svg -t 3000 -r 5386
+    for i in {1..4}
+    do
+      timer ${WORK_DURATION}m
+      if [ $i -lt 4 ]; then
+        dunstify "Starting short break session $i." -i $ASSETS/clock-icon.svg -t 5000 -r 5386 && \
+        pw-cat --volume 1 -p ~/.local/share/pomodoro-assets/clock-alarm.ogg
+        timer ${SHORT_BREAK_DURATION}m
+        dunstify "Short breaking session $i done. Back to work!" -i $ASSETS/clock-icon.svg -t 5000 -r 5386 && \
+        pw-cat --volume 1 -p ~/.local/share/pomodoro-assets/clock-alarm.ogg 
+      fi
+    done
+    dunstify "Pomodoro ended, go to terminal to continue or terminate." -i $ASSETS/clock-icon.svg -t 5000 -r 5386 && \
+    pw-cat --volume 1 -p ~/.local/share/pomodoro-assets/clock-alarm.ogg 
+    read -p "Do you want to start a new cycle? (y/n) " choice
+    if [[ $choice == "y" || $choice == "Y" ]]; then
+      dunstify "Starting long break session" -i $ASSETS/clock-icon.svg -t 3000 -r 5386
+      timer ${LONG_BREAK_DURATION}m
+      dunstify "Long break session done. Back to work!" -i $ASSETS/clock-icon.svg -t 5000 -r 5386 && \
+      pw-cat --volume 1 -p $ASSETS/clock-alarm.ogg 
+    else
+      break
+    fi
+  done
+}
+
+pomodoro

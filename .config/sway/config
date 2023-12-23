@@ -1,57 +1,53 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
-# Execute on startup
-exec --no-startup-id /usr/lib/xdg-desktop-portal -r
+exec /usr/lib/xdg-desktop-portal -r
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+    dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec autotiling-rs
 exec_always gammastep
 
 ### Variables
-#
-# Logo key. Use Mod1 for Alt.
+
+# mod4 is super
 set $mod Mod4
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
+
+# default terminal
 set $term alacritty
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1366x768.png fill
-output * bg ~/.config/sway/wallpapers/toph.jpg fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
+# wallpaper
+output * bg ./wallpapers/onça.jpg fill
 
-### Idle configuration
-#
-# Example configuration:
-#
+# dual monitor config
+output HDMI-A-1 resolution 2560x1080@59.978Hz position 0,1366
+
+# binding workspaces
+workspace 1 output HDMI-A-1
+workspace 2 output HDMI-A-1
+workspace 3 output HDMI-A-1
+workspace 4 output HDMI-A-1
+workspace 5 output HDMI-A-1
+workspace 6 output eDP-1
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 9 output eDP-1
+workspace 10 output eDP-1
+
+
+### idle configuration
+
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
 
-### Input configuration
-#
-# Example configuration:
+### input configuration
 #
 input "1739:32402:DELL0767:00_06CB:7E92_Touchpad" {
     dwt enabled
@@ -61,60 +57,84 @@ input "1739:32402:DELL0767:00_06CB:7E92_Touchpad" {
 }
 
 input "type:keyboard" {
-    xkb_layout br
+  xkb_layout us,br
+  xkb_options grp:alt_shift_toggle
 }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
 
 ### Key bindings
 #
 # Basics:
 #
-    # Start a terminal
-    bindsym $mod+Return exec $term
-
-    #Screenshot
-    bindsym Print exec /usr/bin/sway-interactive-screenshot
+    # Screenshot
+    bindsym $mod+Shift+p exec grim -g "$(slurp)" - | swappy -f -
     
-    #Color picker
-    bindsym $mod+Shift+p exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy 
+    # Color picker
+    bindsym $mod+Alt+p exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy
 
     # Kill focused window
     bindsym $mod+q kill
 
-    # Start your launcher
-    bindsym $mod+u exec rofi -show drun
-    bindsym $mod+i exec ~/.local/bin/rofi-wifi-menu.sh
-    bindsym $mod+o exec rofi -show window
-    bindsym $mod+p exec ~/.local/bin/rofi-powermenu.sh
-    bindsym $mod+m exec rofi -show calc -modi calc -no-show-match -no-sort
-
-    # Start browser
+    # Launch Apps
+    bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec kitty
     bindsym $mod+f exec env MOZ_ENABLE_WAYLAND=1 firefox
-    bindsym $mod+z exec zoom
-    bindsym $mod+s exec/usr/bin/slack --enable-features=WebRTCPipeWireCapturer -s --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto 
-    bindsym $mod+d exec alacritty -e lf
-    bindsym $mod+w exec /opt/google/chrome/google-chrome --profile-directory=Default --app-id=hnpfjngllnobngcgfapefoaidbinmjnm --unity-launch %F --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto
-    bindsym $mod+c exec alacritty -e lvim ~/.config/sway/config
+    bindsym $mod+s exec slack
+    bindsym $mod+d exec kitty -e lf
+    bindsym $mod+g exec google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto
+
+    # Rofi Menus
+    bindsym $mod+u exec rofi -show drun
+    bindsym $mod+i exec ~/.local/bin/rofi-wifi-menu
+    bindsym $mod+o exec rofi -show window
+    bindsym XF86PowerOff exec ~/.local/bin/rofi-powermenu
+    bindsym $mod+m exec rofi -show calc -modi calc -no-show-match -no-sort
+    bindsym $mod+y exec ~/.local/bin/rofi-web-search
+    bindsym $mod+e exec rofi -modi emoji -show emoji
     
-    # volume control
-    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%; exec dunstify "Volume Up" -u normal -i ~/.config/dunst/icons/volume_up.svg -t 1000 -r 6428
-    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%; exec dunstify "Volume Down" -u normal -i ~/.config/dunst/icons/volume_down.svg -t 1000 -r 6428
-    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle; exec dunstify "Volume Mute" -u normal -i ~/.config/dunst/icons/volume_mute.svg -t 1000 -r 6428
+    # Volume control
+    bindsym XF86AudioRaiseVolume exec ~/.local/bin/changevolume up;
+    bindsym XF86AudioLowerVolume exec ~/.local/bin/changevolume down;
+    bindsym XF86AudioMute exec ~/.local/bin/changevolume mute;
+    # bindsym --release XF86AudioLowerVolume exec pkill -RTMIN+1 i3blocks
+    # bindsym --release XF86AudioRaiseVolume exec pkill -RTMIN+1 i3blocks
+    # bindsym --release XF86AudioMute exec pkill -RTMIN+1 i3blocks
     
-    #bright control
-    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-; exec dunstify "Brightness Down" -u normal -i ~/.config/dunst/icons/brightness_low.svg -t 1000 -r 6428
-    bindsym XF86MonBrightnessUp exec brightnessctl set +5%; exec dunstify "Brightness Up" -u normal -i ~/.config/dunst/icons/brightness_high.svg -t 1000 -r 6428
-    #Notification Control
+    # Mic control
+    bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+; exec ~/.local/bin/mic_level_notification
+    bindsym Shift+XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-; exec ~/.local/bin/mic_level_notification
+
+    # Brightness control
+    bindsym XF86MonBrightnessDown exec ~/.local/bin/changebrightness down;
+    bindsym XF86MonBrightnessUp exec ~/.local/bin/changebrightness up;
+    
+    # Media Player Control
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioPause exec playerctl play-pause
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPrev exec playerctl previous
+
+    # Notification Control
     bindsym $mod+n exec dunstctl history-pop
     bindsym $mod+Alt+n exec dunstctl close-all
 
-    #Remove titlebars
-    for_window [class="^.*"] border pixel 1
+    # Toggle bar
+    bindsym $mod+Shift+b exec sway bar mode toggle
+
+    # Remove titlebars
+    for_window [class="^.*"] border pixel 2
+
+    # Border color
     client.focused #31748F #31748F #31748F #31748F #31748F
 
-    #Workaround for Sway keybindings on Google Chrome
+    # Remove borders from floating windows
+    # for_window [class="^.*"] floating enable, border none
+    # default_floating_border none
+    for_window [floating] border none
+
+    # Windows and borders
+    hide_edge_borders smart
+    
+    # Workaround for Sway keybindings on Google Chrome
     for_window [app_id="^chrome-.*"] shortcuts_inhibitor disable
 
     # Drag floating windows by holding down $mod and left mouse button.
@@ -148,11 +168,6 @@ input "type:keyboard" {
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
-    # bindsym $mod+Shift+Left move left
-    # bindsym $mod+Shift+Down move down
-    # bindsym $mod+Shift+Up move up
-    # bindsym $mod+Shift+Right move right
 #
 # Workspaces:
 #
@@ -180,6 +195,9 @@ input "type:keyboard" {
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
+    bindsym $mod+Control+Shift+Right move workspace to output right
+    bindsym $mod+Control+Shift+Left move workspace to output left
 #
 # Layout stuff:
 #
@@ -243,26 +261,40 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+# Gaps
+gaps inner 2
+smart_gaps on
+
 # Font for bar
-font pango:JetBrainsMono Nerd Font 10
+font pango:JetBrainsMono NF 10
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
-    hidden_state hide 
-    mode hide
-    modifier Mod4
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command i3blocks
+# bar {
+#     position top
+#     hidden_state show 
+#     mode dock
+#     modifier Mod4
+#     separator_symbol "|"
+#     # When the status_command prints a new line to stdout, swaybar updates.
+#     # The default just shows the current date and time.
+#     # status_command while /home/emerson/.config/sway/swaybar/swaybar.sh; do sleep 5; done
+#     # status_command while ~/.config/sway/swaybar/swaybar.sh; do sleep 10; done
+#     status_command SCRIPT_DIR=~/.local/bin i3blocks
 
-    colors {
-        statusline #ffffff
-        background #191724 
-        inactive_workspace #191724 #191724 #5c5c5c
-    }
+#     colors {
+#         statusline #ffffff
+#         background #191724 
+#         inactive_workspace #191724 #191724 #5c5c5c
+#     }
+# }
+bar {
+  swaybar_command waybar
+  position top
+  mode hide
+  modifier $mod
+  separator_symbol "|"
 }
 
 include /etc/sway/config.d/*

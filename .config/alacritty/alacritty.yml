@@ -38,7 +38,7 @@ font:
     # Normal (roman) font face
     normal:
       # Font family
-      family: JetBrainsMono Nerd Font 
+      family: JetBrainsMono Nerd Font
       style: Regular
 
     # Bold font face
@@ -56,8 +56,8 @@ font:
       family: JetBrainsMono Nerd Font 
       style: Bold Italic
 
-  # Point size
-    size: 12
+  # Font size
+    size: 13
 
   # If `true`, bold text is drawn using the bright color variants.
     draw_bold_text_with_bright_colors: true
@@ -149,5 +149,3 @@ key_bindings:
   - { key: End,       mods: Shift,         action: ScrollToBottom, mode: ~Alt  }
   - { key: Down,      mods: Shift,         action: ScrollLineDown, mode: ~Alt  }
   - { key: Up,        mods: Shift,         action: ScrollLineUp  , mode: ~Alt  }
-  - { key: N,         mods: Control,       action: SpawnNewInstance            }
-
