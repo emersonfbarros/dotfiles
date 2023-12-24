@@ -7,16 +7,22 @@ return {
       component_separators = '|',
       section_separators = '',
       globalstatus = true,
-      theme = 'rose-pine'
+      theme = 'rose-pine',
     },
     sections = {
       lualine_c = {
         {
           'filename',
           path = 1,
+          color = { bg = '#2e2b42' },
         },
       },
-      lualine_z = { 'location', function() return ' ' end },
+      lualine_z = {
+        'location',
+        function()
+          return ' '
+        end,
+      },
     },
   },
 }
