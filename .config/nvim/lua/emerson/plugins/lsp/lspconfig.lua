@@ -48,9 +48,9 @@ return {
         'stylua', -- lua formatter
         'eslint_d', -- js/ts linter
         'js-debug-adapter',
-        'java-debug-adapter',
-        'jdtls', -- java lsp
-        'google-java-format',
+        -- 'java-debug-adapter',
+        -- 'jdtls', -- java lsp
+        -- 'google-java-format',
         'black', -- python formatter
         'flake8', -- python linter
         'debugpy', --python debuger

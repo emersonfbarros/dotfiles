@@ -21,7 +21,7 @@ return {
     staticcheck = true,
     semanticTokens = true,
   },
-  rust_analyzer = {},
+  -- rust_analyzer = {},
   golangci_lint_ls = {},
   lua_ls = {
     Lua = {

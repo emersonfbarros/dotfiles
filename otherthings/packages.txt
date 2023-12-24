@@ -68,7 +68,9 @@ nfs-utils
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
+ntfs-3g
 nvm
+os-prober
 p7zip
 paru-bin
 pavucontrol
@@ -123,6 +125,11 @@ yt-dlp
 zathura
 zathura-pdf-mupdf
 zoxide
-zramd
 zsh
 zsh-completions
+nvidia-dkms
+nvidia-utils
+nvidia-settings
+qt5-wayland
+qt5ct
+libva
