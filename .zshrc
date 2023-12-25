@@ -25,7 +25,6 @@ source /usr/share/nvm/init-nvm.sh
 
 # Aliases
 alias -g cat="bat"
-alias -g pup="sudo pacman -Syu && paru -Sua && paru -c && paru -Sc"
 alias getpath="fd -tf --exclude .git | fzf | tr -d '\n' | wl-copy"
 alias -g nf="neofetch"
 

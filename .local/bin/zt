@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     SELECTED=$1
 else
-    SELECTED=$(find ~/repos/dotfiles ~/repos ~/.config ~/.local ~/ -mindepth 1 -maxdepth 1 -type d \
+    SELECTED=$(find ~/Repos/dotfiles ~/Repos/dotfiles/.config ~/Repos/dotfiles/.local ~/Repos ~/.config ~/.local ~/ -mindepth 1 -maxdepth 1 -type d \
       | fzf --reverse)
 fi
 
