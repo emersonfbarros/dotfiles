@@ -13,6 +13,7 @@
       "pulseaudio#input",
       "pulseaudio#output",
       "clock",
+      "battery",
       "tray"
     ],
 
@@ -60,7 +61,7 @@
     },
 
     "clock": {
-      "format": "{:%a %b %e   %R} ",
+      "format": "{:%a %b %e  %R} ",
       "interval": 30
     },
 
@@ -76,6 +77,24 @@
       "exec": "$HOME/.local/bin/memory",
       "interval": 30,
       "format": " {}"
+    },
+
+    "battery": {
+      "states": {
+        // "good": 95,
+        "warning": 30
+      },
+      "format": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": "󰂄 {capacity}%",
+      "format-icons": [
+        "󰂎",
+        "󰁻",
+        "󰁽",
+        "󰁿",
+        "󰂁",
+        "󰁹"
+      ]
     },
 
     "cpu": {
