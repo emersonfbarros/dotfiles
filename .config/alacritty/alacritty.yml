@@ -57,7 +57,7 @@ font:
       style: Bold Italic
 
   # Font size
-    size: 11
+    size: 13.5
 
   # If `true`, bold text is drawn using the bright color variants.
     draw_bold_text_with_bright_colors: true
