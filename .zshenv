@@ -1,12 +1,3 @@
-#Enverironment variables
-export SDL_VIDEODRIVER=wayland
-export _JAVA_AWT_WM_NONREPARENTING=1
-export QT_QPA_PLATAFORM=wayland
-export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-export XDG_CURRENT_DESKTOP=hyprland
-export XDG_SESSION_DESKTOP=hyprland
-export MOZ_ENABLE_WAYLAND=1
-
 # Default Apps
 export EDITOR=nvim
 export VISUAL=nvim
