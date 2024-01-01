@@ -4,10 +4,8 @@
     "modules-left": [
       "hyprland/workspaces",
       "hyprland/mode",
-      "custom/icon",
-      "hyprland/window"
     ],
-    "modules-center": [],
+    "modules-center": ["hyprland/window"],
     "modules-right": [
       "hyprland/language",
       "pulseaudio#input",
@@ -39,10 +37,6 @@
       "max-length": 150
     },
 
-    "custom/icon": {
-      "format": "󰣇"
-    },
-
     "hyprland/language": {
       "format": "{short} {variant} ",
     },
@@ -61,7 +55,7 @@
     },
 
     "clock": {
-      "format": "{:%a %b %e  %R} ",
+      "format": "{:%a %b%e  %R} ",
       "interval": 30
     },
 
