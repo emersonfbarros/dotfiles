@@ -1,0 +1,12 @@
+keybase-bin
+libva-nvidia-driver-git
+nvm
+slack-desktop
+tofi
+ttf-comic-relief
+ttf-gelasio-ib
+ttf-selawik
+twingate-bin
+ungoogled-chromium-bin
+visual-studio-code-insiders-bin
+yay-bin

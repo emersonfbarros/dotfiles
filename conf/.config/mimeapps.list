@@ -1,0 +1,13 @@
+[Default Applications]
+image/png=swayimg.desktop;
+application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
+inode/directory=thunar.desktop;
+video/mp4=mpv.desktop;
+x-scheme-handler/http=chromium.desktop
+x-scheme-handler/https=chromium.desktop
+text/html=chromium.desktop
+image/jpeg=swayimg.desktop
+image/gif=swayimg.desktop
+image/svg=swayimg.desktop
+video/x-matroska=mpv.desktop
+video/webm=mpv.desktop

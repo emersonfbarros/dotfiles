@@ -1,0 +1,32 @@
+#!/bin/bash
+
+iDIR="$HOME/.config/mako/icons"
+
+send_notification() {
+  BRIGHTNESS=$(brightnessctl | sed -En 's/.*\(([0-9]+)%\).*/\1/p')
+  if [[ $BRIGHTNESS -gt 50 ]]
+    then
+      ICON="$iDIR/brightness-high.svg"
+    else
+      ICON="$iDIR/brightness-low.svg"
+  fi
+  notify-send "Brightness: $BRIGHTNESS%" -h int:value:"$BRIGHTNESS" \
+    -h string:x-canonical-private-synchronous:sys-notify -u normal -i "$ICON"
+}
+
+case $1 in
+up)
+  brightnessctl set 5%+
+  send_notification
+  ;;
+down)
+  CURR_BRIGHTNESS=$(brightnessctl | sed -En 's/.*\(([0-9]+)%\).*/\1/p')
+  if [[ $CURR_BRIGHTNESS -gt 5 ]]
+    then
+      brightnessctl set 5%-
+      send_notification
+    else
+      send_notification
+  fi
+  ;;
+esac
