@@ -3,7 +3,7 @@ return {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
     dependencies = {
-      { 'williamboman/mason.nvim', config = true },
+      {'williamboman/mason.nvim', lazy = true, opts = {}},
       'williamboman/mason-lspconfig.nvim',
       'hrsh7th/cmp-nvim-lsp',
       { 'folke/neodev.nvim', opts = {}, lazy = true },
@@ -159,7 +159,8 @@ return {
       require('mason').setup()
 
       require('mason-lspconfig').setup {
-        ensure_installed = servers,
+        ensure_installed = vim.tbl_keys(servers or {}),
+        automatic_installation = true,
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
