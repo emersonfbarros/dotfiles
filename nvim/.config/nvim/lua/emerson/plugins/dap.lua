@@ -102,6 +102,24 @@ return {
           program = '${workspaceFolder}/src/tests/matches.integration.test.ts',
           cwd = '${workspaceFolder}',
         },
+        {
+          type = 'pwa-node',
+          request = 'launch',
+          name = 'Launch jest test with ts-jest',
+          sourceMaps = true,
+          resolveSourceMapLocations = {
+            '${workspaceFolder}/**',
+            '!**/node_modules/**',
+          },
+          protocol = 'inspector',
+          runtimeExecutable = 'node',
+          runtimeArgs = {
+            '-r',
+            'ts-jest',
+            './node_modules/jest/bin/jest.js',
+          },
+          cwd = '${workspaceFolder}',
+        },
       }
     elseif filetype == 'python' then
       local path = require('mason-registry').get_package('debugpy'):get_install_path()
