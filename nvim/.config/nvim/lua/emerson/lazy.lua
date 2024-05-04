@@ -11,7 +11,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup({ { import = 'emerson.plugins' }, { import = 'emerson.plugins.languages' } }, {
+require('lazy').setup({
+  { import = 'emerson.plugins' },
+  { import = 'emerson.plugins.languages' },
+}, {
   performance = {
     cache = {
       enabled = true,
