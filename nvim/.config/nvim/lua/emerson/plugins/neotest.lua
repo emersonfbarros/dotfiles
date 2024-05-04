@@ -32,6 +32,14 @@ return {
       adapters = {
         require 'neotest-go',
         require 'rustaceanvim.neotest',
+        require 'neotest-jest' {
+          jestCommand = 'npm test --',
+          jestConfigFile = 'jest.config.js',
+          env = { CI = true },
+          cwd = function(path)
+            return vim.fn.getcwd()
+          end,
+        },
       },
     }
   end,
