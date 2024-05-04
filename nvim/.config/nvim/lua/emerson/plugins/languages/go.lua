@@ -23,10 +23,6 @@ return {
         end,
         group = format_sync_grp,
       })
-
-      vim.api.nvim_buf_create_user_command(0, 'GoDebugTest', function(_)
-        require('dap-go').debug_test()
-      end, { desc = 'Start debugging Go Test' })
     end,
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
