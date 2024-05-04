@@ -1,3 +1,3 @@
 require 'emerson.core.keymaps'
 require 'emerson.core.options'
-require 'emerson.core.misc'
+require 'emerson.core.autocommands'
