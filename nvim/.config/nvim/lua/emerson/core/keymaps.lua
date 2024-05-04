@@ -25,12 +25,6 @@ vim.keymap.set('v', '<M-k>', ":m '<-2<CR>gv=gv", { silent = true })
 vim.keymap.set('n', '<M-j>', ':m .+1<CR>==', { silent = true })
 vim.keymap.set('n', '<M-k>', ':m .-2<CR>==', { silent = true })
 
--- Navigating between splits
--- vim.keymap.set('n', '<C-h>', '<C-w>h')
--- vim.keymap.set('n', '<C-j>', '<C-w>j')
--- vim.keymap.set('n', '<C-k>', '<C-w>k')
--- vim.keymap.set('n', '<C-l>', '<C-w>l')
-
 -- runs zt script
 vim.keymap.set('n', 'C-f', ":silent !tmux display-popup -E 'zt'<CR>")
 
