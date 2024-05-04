@@ -2,12 +2,6 @@ return {
   'mfussenegger/nvim-dap',
   dependencies = {
     { 'rcarriga/nvim-dap-ui', dependencies = 'nvim-neotest/nvim-nio' },
-    'williamboman/mason.nvim',
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
-    {
-      'theHamsta/nvim-dap-virtual-text',
-      opts = {},
-    },
     'leoluz/nvim-dap-go',
     'mfussenegger/nvim-dap-python',
   },
@@ -30,15 +24,6 @@ return {
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['daui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
-
-    local ensure_installed_adapters = {
-      'js-debug-adapter',
-      'debugpy', --python debuger
-      'delve', -- Go debugger
-      'codelldb', -- C, C++, Zig, Rust debugger
-    }
-
-    require('mason-tool-installer').setup { ensure_installed = ensure_installed_adapters }
 
     local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
     if filetype == 'javascript' or filetype == 'typescript' then
