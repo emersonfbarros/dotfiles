@@ -60,6 +60,9 @@ export FZF_DEFAULT_OPTS="
 	--color=spinner:#f6c177,info:#9ccfd8,separator:#403d52
 	--color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa"
 
+bindkey "^H" backward-delete-char
+bindkey "^?" backward-delete-char
+
 # Load and initialise completion system
 autoload -Uz compinit
 compinit
