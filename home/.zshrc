@@ -19,10 +19,9 @@ plug "zsh-users/zsh-syntax-highlighting"
 
 # Source at start
 eval "$(zoxide init zsh)"
+eval "$(fzf --zsh)"
 source "$HOME/.cargo/env"
 source /usr/share/nvm/init-nvm.sh
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
 
 # Setting up SSH and GPG keys
 eval $(keychain --eval --agents ssh --quiet id_ed25519 ~/.ssh/id_ed25519)
