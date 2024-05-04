@@ -47,13 +47,5 @@ vim.keymap.set('t', '<C-h>', '<cmd>wincmd h<cr>', { desc = 'Go to left window' }
 vim.keymap.set('t', '<C-j>', '<cmd>wincmd j<cr>', { desc = 'Go to lower window' })
 vim.keymap.set('t', '<C-k>', '<cmd>wincmd k<cr>', { desc = 'Go to upper window' })
 vim.keymap.set('t', '<C-l>', '<cmd>wincmd l<cr>', { desc = 'Go to right window' })
-
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>m', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
--- telescopre
-vim.keymap.set('n', '<leader>sd', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
 -- Testing an API with curl
 -- vim.keymap.set('n', '<leader>ta', '<cmd>set splitright | vnew | set filetype=sh | read !sh #<CR>', { silent = true, desc = '[T]est [A]pi' })

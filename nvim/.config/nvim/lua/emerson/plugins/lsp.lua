@@ -41,6 +41,9 @@ return {
           map('<leader>cr', vim.lsp.buf.rename, '[R]e[n]ame')
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
+          map('[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+          map(']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+          map('<leader>m', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.server_capabilities.documentHighlightProvider then
