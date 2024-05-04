@@ -61,9 +61,6 @@ return {
         end,
       })
 
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-
       local servers = {
         gopls = {
           gofumpt = true,
@@ -159,39 +156,44 @@ return {
         },
       }
 
-      -- Ensure the servers and tools above are installed
+      -- extending lsp capabilites
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+      local lspconfig = require 'lspconfig'
+
+      -- Ensure the servers and tools above are installed and ready to use
       require('mason').setup()
+      require('mason-lspconfig').setup_handlers {
+        function(server_name)
+          local server = servers[server_name] or {}
+          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+          lspconfig[server_name].setup(server)
+        end,
 
-      require('mason-lspconfig').setup {
-        ensure_installed = vim.tbl_keys(servers or {}),
-        automatic_installation = true,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
+        ['tsserver'] = function() end, -- preventing duplicated server along with typescript-tools plugin
 
-            -- preventing duplicated server because typescript-tools plugin
-            if server_name == 'tsserver' then
-              return
-            end
-
-            if server.name == 'gopls' then
-              if not server.server_capabilities.semanticTokensProvider then
-                local semantic = server.config.capabilities.textDocument.semanticTokens
-                server.server_capabilities.semanticTokensProvider = {
-                  full = true,
-                  legend = {
-                    tokenTypes = semantic.tokenTypes,
-                    tokenModifiers = semantic.tokenModifiers,
-                  },
-                  range = true,
-                }
+        ['gopls'] = function()
+          lspconfig['gopls'].setup {
+            capabilities = capabilities,
+            settings = servers.gopls,
+            on_attach = function(client, _)
+              if client.name == 'gopls' then -- workaround for gopls not supporting semanticTokensProvider
+                if not client.server_capabilities.semanticTokensProvider then
+                  local semantic = client.config.capabilities.textDocument.semanticTokens
+                  client.server_capabilities.semanticTokensProvider = {
+                    full = true,
+                    legend = {
+                      tokenTypes = semantic.tokenTypes,
+                      tokenModifiers = semantic.tokenModifiers,
+                    },
+                    range = true,
+                  }
+                end
               end
-            end
-
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
+            end,
+          }
+        end,
       }
     end,
   },
