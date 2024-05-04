@@ -10,16 +10,10 @@ return {
     config = function()
       require('go').setup()
 
-      require('which-key').register {
-        ['<leader>G'] = {
-          name = '+[G]o',
-          a = { '<cmd>GoAddTag<CR>', '[A]dd Tags' },
-          f = { '<cmd>GoFillStruct<CR>', '[F]ill Struct' },
-          e = { '<cmd>GoIfErr<CR>', 'If[E]rr' },
-          t = { '<cmd>Neotest run', '[T]est Func' },
-          T = { '<cmd>Neotest run', '[T]est File' },
-        },
-      }
+      vim.keymap.set('n', '<leader>Ga', '<cmd>GoAddTag<CR>', { desc = '[A]dd Tags' })
+      vim.keymap.set('n', '<leader>Gf', '<cmd>GoFillStruct<CR>', { desc = '[F]ill Struct' })
+      vim.keymap.set('n', '<leader>Ge', '<cmd>GoIfErr<CR>', { desc = 'If [E]rr' })
+      vim.keymap.set('n', '<leader>Gt', '<cmd>lua require("dap-go").debug_test()<CR>', { desc = 'Debug Go [T]est' })
 
       local format_sync_grp = vim.api.nvim_create_augroup('go', {})
       vim.api.nvim_create_autocmd('BufWritePre', {
