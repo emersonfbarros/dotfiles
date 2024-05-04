@@ -3,8 +3,9 @@ return {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
     dependencies = {
-      {'williamboman/mason.nvim', lazy = true, opts = {}},
+      { 'williamboman/mason.nvim', lazy = true, opts = {} },
       'williamboman/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim', -- to install linters, formatters and daps
       'hrsh7th/cmp-nvim-lsp',
       { 'folke/neodev.nvim', opts = {}, lazy = true },
       {
