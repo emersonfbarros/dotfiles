@@ -10,10 +10,10 @@ return {
   keys = {
     { '<leader>db', "<cmd>lua require('dap').toggle_breakpoint()<CR>", desc = '[D]ebug: Toggle [B]reakpoint' },
     { '<leader>du', "<cmd>lua require('dapui').toggle()<CR>", desc = '[D]ebug: Toggle UI' },
-    { '<leader>ds', '<cmd>lua require(dap).continue()<CR>', desc = '[D]ebug: [S]tart/Continue' },
-    { '<leader>di', '<cmd>lua require(dap).step_into()<CR>', desc = '[D]ebug: Step [I]nto' },
-    { '<leader>do', '<cmd>lua require(dap).step_over()<CR>', desc = '[D]ebug: Step [O]ver' },
-    { '<leader>de', '<cmd>lua require(dap).step_out()<CR>', desc = '[D]ebug: Step Out/[E]xit' },
+    { '<leader>ds', "<cmd>lua require('dap').continue()<CR>", desc = '[D]ebug: [S]tart/Continue' },
+    { '<leader>di', "<cmd>lua require('dap').step_into()<CR>", desc = '[D]ebug: Step [I]nto' },
+    { '<leader>do', "<cmd>lua require('dap').step_over()<CR>", desc = '[D]ebug: Step [O]ver' },
+    { '<leader>de', "<cmd>lua require('dap').step_out()<CR>", desc = '[D]ebug: Step Out/[E]xit' },
   },
   config = function()
     local dap = require 'dap'
