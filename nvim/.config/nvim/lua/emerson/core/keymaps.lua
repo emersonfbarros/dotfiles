@@ -47,5 +47,3 @@ vim.keymap.set('t', '<C-h>', '<cmd>wincmd h<cr>', { desc = 'Go to left window' }
 vim.keymap.set('t', '<C-j>', '<cmd>wincmd j<cr>', { desc = 'Go to lower window' })
 vim.keymap.set('t', '<C-k>', '<cmd>wincmd k<cr>', { desc = 'Go to upper window' })
 vim.keymap.set('t', '<C-l>', '<cmd>wincmd l<cr>', { desc = 'Go to right window' })
--- Testing an API with curl
--- vim.keymap.set('n', '<leader>ta', '<cmd>set splitright | vnew | set filetype=sh | read !sh #<CR>', { silent = true, desc = '[T]est [A]pi' })
