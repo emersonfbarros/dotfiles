@@ -5,7 +5,6 @@ return {
     dependencies = {
       { 'williamboman/mason.nvim', lazy = true, opts = {} },
       'williamboman/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim', -- to install linters, formatters and daps
       'hrsh7th/cmp-nvim-lsp',
       { 'folke/neodev.nvim', opts = {}, lazy = true },
       {
@@ -41,144 +40,44 @@ return {
           map('<leader>cS', telescope_cmd 'lsp_dynamic_workspace_symbols', '[C]ode workspace [S]ymbols')
           map('<leader>cr', vim.lsp.buf.rename, '[R]e[n]ame')
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-          map('K', vim.lsp.buf.hover, 'Hover Documentation')
-          map('[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-          map(']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-          map('<leader>m', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.server_capabilities.documentHighlightProvider then
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-              buffer = event.buf,
-              callback = vim.lsp.buf.document_highlight,
-            })
 
-            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-              buffer = event.buf,
-              callback = vim.lsp.buf.clear_references,
-            })
+          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+            map('<leader>ch', function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
+            end, '[C]ode inlay [H]ints')
           end
         end,
       })
 
-      local servers = {
-        gopls = {
-          gofumpt = true,
-          codelenses = {
-            gc_details = false,
-            generate = true,
-            regenerate_cgo = true,
-            run_govulncheck = true,
-            test = true,
-            tidy = true,
-            upgrade_dependency = true,
-            vendor = true,
-          },
-          hints = {
-            assignVariableTypes = true,
-            compositeLiteralFields = true,
-            compositeLiteralTypes = true,
-            constantValues = true,
-            functionTypeParameters = true,
-            parameterNames = true,
-            rangeVariableTypes = true,
-          },
-          analyses = {
-            fieldalignment = true,
-            nilness = true,
-            unusedparams = true,
-            unusedwrite = true,
-            useany = true,
-          },
-          usePlaceholders = true,
-          completeUnimported = true,
-          staticcheck = true,
-          directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
-          semanticTokens = true,
-        },
-        golangci_lint_ls = {},
-        pyright = {
-          single_file_support = true,
-          settings = {
-            pyright = {
-              disableLanguageServices = false,
-              disableOrganizeImports = false,
-            },
-            python = {
-              analysis = {
-                autoImportCompletions = true,
-                autoSearchPaths = true,
-                diagnosticMode = 'workspace', -- openFilesOnly, workspace
-                typeCheckingMode = 'basic', -- off, basic, strict
-                useLibraryCodeForTypes = true,
-              },
-            },
-          },
-        },
-        omnisharp = {
-          enable_roslyn_analyzers = true,
-          organize_imports_on_format = true,
-          enable_import_completion = true,
-        },
-        tsserver = {},
-        lua_ls = {
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              workspace = { checkThirdParty = false },
-              telemetry = { enable = false },
-              codeLens = {
-                enable = true,
-              },
-            },
-          },
-        },
-        dockerls = {},
-        docker_compose_language_service = {},
-        bashls = {},
-        jsonls = {},
-        taplo = {
-          keys = {
-            {
-              'K',
-              function()
-                if vim.fn.expand '%:t' == 'Cargo.toml' and require('crates').popup_available() then
-                  require('crates').show_popup()
-                else
-                  vim.lsp.buf.hover()
-                end
-              end,
-              desc = 'Show Crate Documentation',
-            },
-          },
-        },
-      }
+      local servers = require 'emerson.plugins.tools.servers'
 
-      -- extending lsp capabilites
+      -- Extending lsp capabilites
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       local lspconfig = require 'lspconfig'
 
-      -- Ensure the servers and tools above are installed and ready to use
+      -- Ensure the servers above are ready to use
       require('mason').setup()
-      require('mason-lspconfig').setup_handlers {
-        function(server_name)
-          local server = servers[server_name] or {}
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          lspconfig[server_name].setup(server)
-        end,
+      require('mason-lspconfig').setup {
+        handlers = {
+          function(server_name)
+            local server = servers[server_name] or {}
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            lspconfig[server_name].setup(server)
+          end,
 
-        ['tsserver'] = function() end, -- preventing duplicated server along with typescript-tools plugin
+          ['tsserver'] = function() end, -- preventing duplicated server along with typescript-tools plugin
 
-        ['gopls'] = function()
-          lspconfig['gopls'].setup {
-            capabilities = capabilities,
-            settings = servers.gopls,
-            on_attach = function(client, _)
-              if client.name == 'gopls' then -- workaround for gopls not supporting semanticTokensProvider
+          ['gopls'] = function()
+            local gopls = lspconfig['gopls']
+
+            gopls.setup {
+              settings = servers.gopls.settings,
+              capabilities = vim.tbl_deep_extend('force', {}, capabilities, gopls.capabilities or {}),
+              on_attach = function(client, _)
                 if not client.server_capabilities.semanticTokensProvider then
                   local semantic = client.config.capabilities.textDocument.semanticTokens
                   client.server_capabilities.semanticTokensProvider = {
@@ -190,10 +89,10 @@ return {
                     range = true,
                   }
                 end
-              end
-            end,
-          }
-        end,
+              end,
+            }
+          end,
+        },
       }
     end,
   },
