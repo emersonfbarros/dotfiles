@@ -1,4 +1,4 @@
-import = ["~/Repos/dotfiles/.config/alacritty/rose-pine-theme.toml"]
+import = ["~/.config/alacritty/rose-pine-theme.toml"]
 
 [cursor]
 style = "Block"
@@ -128,7 +128,7 @@ multiplier = 3
 [window]
 decorations_theme_variant = "None"
 dynamic_title = true
-opacity = 0.95
+opacity = 0.8
 startup_mode = "Windowed"
 title = "Alacritty"
 
