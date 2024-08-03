@@ -3,7 +3,6 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
--- vim.wo.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -60,12 +59,21 @@ vim.o.shiftwidth = 2
 -- My scrolloff
 vim.o.scrolloff = 8
 
--- Netrw options
--- vim.g.netrw_banner = 0
--- vim.g.netrw_browse_split=4
--- vim.g.netrw_altv = 1
--- vim.g.netrw_liststyle=3
-
 -- split windows
 vim.o.splitright = true -- split vertical window to the right
 vim.o.splitbelow = true -- split horizontal window to the bottom
+
+-- [[ Borders around windows ]]
+local _border = 'single'
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = _border,
+})
+
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = _border,
+})
+
+vim.diagnostic.config {
+  float = { border = _border },
+}
