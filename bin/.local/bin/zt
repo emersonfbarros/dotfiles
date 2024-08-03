@@ -4,7 +4,8 @@ if [[ $# -eq 1 ]]; then
     SELECTED=$1
 else
     SELECTED=$(fd --exact-depth 1 --type d --color never --hidden \
-      . ~/Repos/dotfiles ~/Repos/work ~/Repos ~/.config ~/.local ~/ | fzf --reverse)
+      . ~/Repos/dotfiles ~/Repos/work ~/Repos ~/.config ~/.local ~/ \
+      | fzf --tmux 70%)
 fi
 
 if [[ -z $SELECTED ]]; then
