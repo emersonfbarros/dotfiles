@@ -16,17 +16,14 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 
--- Alternatuve paste
-vim.keymap.set('x', '<M-p>', '"_dP')
+-- Alternative paste
+vim.keymap.set('x', '<leader>P', '"_dP')
 
 -- Moving lines up and down
 vim.keymap.set('v', '<M-j>', ":m '>+1<CR>gv=gv", { silent = true })
 vim.keymap.set('v', '<M-k>', ":m '<-2<CR>gv=gv", { silent = true })
 vim.keymap.set('n', '<M-j>', ':m .+1<CR>==', { silent = true })
 vim.keymap.set('n', '<M-k>', ':m .-2<CR>==', { silent = true })
-
--- runs zt script
-vim.keymap.set('n', 'C-f', ":silent !tmux display-popup -E 'zt'<CR>")
 
 -- Close buffer without closing split
 vim.keymap.set('n', '<leader>x', ':bp|bd #<CR>', { desc = 'E[x]clude buffer', silent = true })
@@ -47,3 +44,5 @@ vim.keymap.set('t', '<C-h>', '<cmd>wincmd h<cr>', { desc = 'Go to left window' }
 vim.keymap.set('t', '<C-j>', '<cmd>wincmd j<cr>', { desc = 'Go to lower window' })
 vim.keymap.set('t', '<C-k>', '<cmd>wincmd k<cr>', { desc = 'Go to upper window' })
 vim.keymap.set('t', '<C-l>', '<cmd>wincmd l<cr>', { desc = 'Go to right window' })
+
+vim.keymap.set('n', '<leader>r', ':set relativenumber!<CR>', { desc = 'Toggle relative line number', silent = true })
