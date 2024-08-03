@@ -7,11 +7,9 @@ return {
     { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
   },
   config = function()
-    -- skip backwards compatibility routines and speed up loading
-    vim.g.skip_ts_context_commentstring_module = true
-
     local treesitter = require 'nvim-treesitter.configs'
 
+    ---@diagnostic disable-next-line: missing-fields
     treesitter.setup { -- enable syntax highlighting
       highlight = {
         enable = true,

@@ -2,6 +2,7 @@ return {
   'nvim-treesitter/nvim-treesitter-textobjects',
   lazy = true,
   config = function()
+    ---@diagnostic disable-next-line: missing-fields
     require('nvim-treesitter.configs').setup {
       textobjects = {
         select = {
@@ -16,12 +17,6 @@ return {
             ['i='] = { query = '@assignment.inner', desc = 'Select inner part of an assignment' },
             ['l='] = { query = '@assignment.lhs', desc = 'Select left hand side of an assignment' },
             ['r='] = { query = '@assignment.rhs', desc = 'Select right hand side of an assignment' },
-
-            -- works for javascript/typescript files (custom capture I created in after/queries/ecma/textobjects.scm)
-            ['a:'] = { query = '@property.outer', desc = 'Select outer part of an object property' },
-            ['i:'] = { query = '@property.inner', desc = 'Select inner part of an object property' },
-            ['l:'] = { query = '@property.lhs', desc = 'Select left part of an object property' },
-            ['r:'] = { query = '@property.rhs', desc = 'Select right part of an object property' },
 
             ['aa'] = { query = '@parameter.outer', desc = 'Select outer part of a parameter/argument' },
             ['ia'] = { query = '@parameter.inner', desc = 'Select inner part of a parameter/argument' },
@@ -102,9 +97,9 @@ return {
     vim.keymap.set({ 'n', 'x', 'o' }, ',', ts_repeat_move.repeat_last_move_opposite)
 
     -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
-    vim.keymap.set({ 'n', 'x', 'o' }, 'f', ts_repeat_move.builtin_f)
-    vim.keymap.set({ 'n', 'x', 'o' }, 'F', ts_repeat_move.builtin_F)
-    vim.keymap.set({ 'n', 'x', 'o' }, 't', ts_repeat_move.builtin_t)
-    vim.keymap.set({ 'n', 'x', 'o' }, 'T', ts_repeat_move.builtin_T)
+    vim.keymap.set({ 'n', 'x', 'o' }, 'f', ts_repeat_move.builtin_f_expr, { expr = true })
+    vim.keymap.set({ 'n', 'x', 'o' }, 'F', ts_repeat_move.builtin_F_expr, { expr = true })
+    vim.keymap.set({ 'n', 'x', 'o' }, 't', ts_repeat_move.builtin_t_expr, { expr = true })
+    vim.keymap.set({ 'n', 'x', 'o' }, 'T', ts_repeat_move.builtin_T_expr, { expr = true })
   end,
 }
