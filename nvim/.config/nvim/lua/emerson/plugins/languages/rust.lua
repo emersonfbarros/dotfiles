@@ -1,8 +1,7 @@
 return {
   {
-
     'mrcjkb/rustaceanvim',
-    version = '^4',
+    version = '^5',
     ft = { 'rust' },
     opts = {
       server = {
@@ -11,7 +10,9 @@ return {
             cargo = {
               allFeatures = true,
               loadOutDirsFromCheck = true,
-              runBuildScripts = true,
+              buildScripts = {
+                enable = true,
+              },
             },
             checkOnSave = {
               allFeatures = true,
@@ -24,6 +25,42 @@ return {
                 ['async-trait'] = { 'async_trait' },
                 ['napi-derive'] = { 'napi' },
                 ['async-recursion'] = { 'async_recursion' },
+              },
+            },
+          },
+        },
+        settings = {
+          ['rust-analyzer'] = {
+            inlayHints = {
+              bindingModeHints = {
+                enable = false,
+              },
+              chainingHints = {
+                enable = true,
+              },
+              closingBraceHints = {
+                enable = true,
+                minLines = 25,
+              },
+              closureReturnTypeHints = {
+                enable = 'never',
+              },
+              lifetimeElisionHints = {
+                enable = 'never',
+                useParameterNames = false,
+              },
+              maxLength = 25,
+              parameterHints = {
+                enable = true,
+              },
+              reborrowHints = {
+                enable = 'never',
+              },
+              renderColons = true,
+              typeHints = {
+                enable = true,
+                hideClosureInitialization = false,
+                hideNamedConstructor = false,
               },
             },
           },
