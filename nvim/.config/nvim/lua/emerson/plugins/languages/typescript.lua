@@ -5,11 +5,12 @@ return {
   lazy = true,
   config = function()
     local tst = require 'typescript-tools'
+
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
     tst.setup {
-      capabilities = capabilities,
+      capabilities = vim.tbl_deep_extend('force', {}, capabilities, tst.capabilities or {}),
       settings = {
         separate_diagnostic_server = true,
         composite_mode = 'separate_diagnostic',
@@ -21,20 +22,41 @@ return {
           filetypes = { 'javascriptreact', 'typescriptreact' },
         },
         tsserver_file_preferences = {
-          quotePreference = 'single',
+          quotePreference = 'auto',
           importModuleSpecifierEnding = 'minimal',
-          importModuleSpecifierPreference = 'relative',
+          importModuleSpecifierPreference = 'shortest',
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
         },
       },
     }
 
-    vim.keymap.set('n', '<leader>to', '<cmd>TSToolsOrganizeImports<cr>', { desc = ' TS Organize Imports' })
-    vim.keymap.set('n', '<leader>ts', '<cmd>TSToolsSortImports<cr>', { desc = ' TS Sort Imports' })
-    vim.keymap.set('n', '<leader>tru', '<cmd>TSToolsRemoveUnused<cr>', { desc = ' TS Removed Unused' })
-    vim.keymap.set('n', '<leader>td', '<cmd>TSToolsGoToSourceDefinition<cr>', { desc = ' TS Go To Source Definition' })
-    vim.keymap.set('n', '<leader>tri', '<cmd>TSToolsRemoveUnusedImports<cr>', { desc = ' TS Removed Unused Imports' })
-    vim.keymap.set('n', '<leader>tf', '<cmd>TSToolsFixAll<cr>', { desc = ' TS Fix All' })
-    vim.keymap.set('n', '<leader>tia', '<cmd>TSToolsAddMissingImports<cr>', { desc = ' TS Add Missing Imports' })
-    vim.keymap.set('n', '<leader>trf', '<cmd>TSToolsRenameFile<cr>', { desc = 'TS Rename File' })
+    local js_actions = function()
+      vim.ui.select({
+        'TSToolsOrganizeImports',
+        'TSToolsSortImports',
+        'TSToolsRemoveUnusedImports',
+        'TSToolsRemoveUnused',
+        'TSToolsAddMissingImports',
+        'TSToolsFixAll',
+        'TSToolsGoToSourceDefinition',
+        'TSToolsRenameFile',
+        'TSToolsFileReferences',
+      }, {
+        prompt = 'TS/JS Actions',
+      }, function(choice)
+        if choice then
+          vim.cmd(choice)
+        end
+      end)
+    end
+
+    vim.keymap.set('n', '<leader>js', js_actions, { desc = 'TS/JS Action' })
   end,
 }
