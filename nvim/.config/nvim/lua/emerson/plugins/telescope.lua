@@ -21,9 +21,31 @@ return {
       defaults = {
         prompt_prefix = ' ',
         selection_caret = ' ',
+        layout_config = {
+          horizontal = { width = 0.94 },
+        },
+        borderchars = { -- squaring stuff
+          --           N    E    S    W   NW   NE   SE   SW
+          prompt = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+          results = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+          preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+        },
+        mappings = {
+          i = { ['<c-t>'] = open_with_trouble },
+          n = { ['<c-t>'] = open_with_trouble },
+        },
       },
-      pickers = {
-        buffers = { theme = 'dropdown', previewer = false },
+      pickers = { -- squaring stuff
+        buffers = {
+          theme = 'dropdown',
+          previewer = false,
+          borderchars = {
+            --           N    E    S    W   NW   NE   SE   SW
+            prompt = { '─', '│', ' ', '│', '┌', '┐', '│', '│' },
+            results = { '─', '│', '─', '│', '├', '┤', '┘', '└' },
+            preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+          },
+        },
       },
     }
   end,
