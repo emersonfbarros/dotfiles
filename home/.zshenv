@@ -9,6 +9,5 @@ export IMAGE=swayimg
 export COLORTERM=truecolor
 export OPENER=xdg-open
 export PAGER=less
-export WM=hyprland
-# export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export WM=sway
 export MANPAGER="nvim +Man!"

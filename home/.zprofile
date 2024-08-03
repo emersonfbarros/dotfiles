@@ -1,2 +1,2 @@
-#Start Hyprland on tty1
-[ "$(tty)" = "/dev/tty1" ] && exec Hyprland
+[ "$(tty)" = "/dev/tty1" ] && exec ~/.local/bin/startsway
+# [ "$(tty)" = "/dev/tty1" ] && exec Hyprland
