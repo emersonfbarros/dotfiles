@@ -3,7 +3,6 @@ return {
   dependencies = {
     { 'rcarriga/nvim-dap-ui', dependencies = 'nvim-neotest/nvim-nio' },
     'leoluz/nvim-dap-go',
-    'mfussenegger/nvim-dap-python',
   },
   lazy = true,
   enabled = true,
@@ -121,9 +120,6 @@ return {
           cwd = '${workspaceFolder}',
         },
       }
-    elseif filetype == 'python' then
-      local path = require('mason-registry').get_package('debugpy'):get_install_path()
-      require('dap-python').setup(path .. '/venv/bin/python')
     elseif filetype == 'go' then
       require('dap-go').setup()
     end
