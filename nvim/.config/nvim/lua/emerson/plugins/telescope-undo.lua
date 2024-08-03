@@ -1,5 +1,4 @@
 return {
-  -- Separated from telescope due to lazy loading reasons
   'debugloop/telescope-undo.nvim',
   dependencies = {
     {
