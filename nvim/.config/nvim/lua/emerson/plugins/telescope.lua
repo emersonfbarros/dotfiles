@@ -17,6 +17,8 @@ return {
     local telescope = require 'telescope'
     telescope.load_extension 'fzf'
 
+    local open_with_trouble = require('trouble.sources.telescope').open
+
     telescope.setup {
       defaults = {
         prompt_prefix = ' ',
