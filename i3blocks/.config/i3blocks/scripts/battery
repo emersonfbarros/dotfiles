@@ -1,0 +1,16 @@
+#!/bin/bash
+
+batter_info=$(upower -i /org/freedesktop/UPower/devices/battery_BAT1)
+is_charging=$(echo "$batter_info" | grep state | awk '{print $2}')
+
+if [[ "$is_charging" == "charging" ]]; then
+  icons=("󰢟" "󰢜" "󰂆" "󰂇" "󰂈" "󰢝" "󰂉" "󰢞" "󰂊" "󰂋" "󰂅")
+else
+  icons=("󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹")
+fi
+
+charged_value=$(echo "$batter_info" | grep percentage | awk '{print $2}')
+
+index=${charged_value::-2}
+
+echo "${icons[$index]} $charged_value"

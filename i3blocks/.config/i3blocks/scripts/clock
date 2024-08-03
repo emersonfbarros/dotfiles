@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ICONS=("󱑋 " "󱑌 " "󱑍 " "󱑎 " "󱑏 " "󱑐 " "󱑑 " "󱑒 " "󱑓 " "󱑔 " "󱑕 " "󱑖 ")
+
+INDEX_BY_HOUR=$(echo "$(date '+%l') - 1" | bc)
+
+echo "${ICONS[$INDEX_BY_HOUR]}$(date '+%R')"

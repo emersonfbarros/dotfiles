@@ -1,0 +1,9 @@
+#!/bin/bash
+
+LAYOUT=$(swaymsg -r -t get_inputs \
+  | jq -r '.[] | select(.identifier=="1:1:AT_Translated_Set_2_keyboard") | .xkb_active_layout_name' \
+  | awk -F'[()]' '{print $2}' \
+  | cut -c1-2 \
+  | tr '[:lower:]' '[:upper:]')
+
+echo "  $LAYOUT"

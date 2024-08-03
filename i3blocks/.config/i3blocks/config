@@ -1,57 +1,30 @@
 command=$SCRIPT_DIR/$BLOCK_NAME
-separator_block_width=12
+separator_block_width=14
 markup=none
-
-# Generic media player support
-[mediaplayer]
-command=$SCRIPT_DIR/mediaplayer
-label= 
-instance=vlc,%any,spotify
-interval=5
-signal=10
 
 [keyboard_layout]
 comand=$SCRIPT_DIR/keyboard_layout
-label=󰌌 
-interval=5
-
-[memory]
-command=$SCRIPT_DIR/memory
-label= 
 interval=15
 
-[cpu_usage]
-command=$SCRIPT_DIR/cpu
-label=󰍛 
-interval=10
-
-[disk]
-command=$SCRIPT_DIR/disk
-label=󰋊 
-interval=60
-
-[wifi]
-command=$SCRIPT_DIR/wifi
-label=󰖩 
-interval=10
+[mic_volume]
+command=$SCRIPT_DIR/mic_volume
+interval=once
+signal=2
 
 [volume]
 command=$SCRIPT_DIR/volume
 interval=once
 signal=1
 
-[brightness]
-command=$SCRIPT_DIR/brightness
-label=󰃝 
-interval=once
-signal=2
-
 [date]
-command=date '+%d/%m/%Y'
+command=date '+%a %b %d'
 interval=3600
 label=󰃭 
 
-[time]
-command=date '+%H:%M'
-interval=5
-label= 
+[clock]
+command=$SCRIPT_DIR/clock
+interval=10
+
+[battery]
+command=$SCRIPT_DIR/battery
+interval=120

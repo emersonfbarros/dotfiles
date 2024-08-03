@@ -1,0 +1,15 @@
+#!/bin/bash
+
+VOLUME=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2*100}')
+
+if echo "$(wpctl get-volume @DEFAULT_AUDIO_SINK@)" | grep -q "[MUTED]"; then
+  ICON="󰝟 "
+  elif [[ $VOLUME -ge 50 ]]; then
+    ICON="󰕾 "
+  elif [[ $VOLUME -lt 50 ]] && [[ $VOLUME -gt 0 ]]; then
+    ICON="󰖀 "
+  elif [[ $VOLUME -eq 0 ]]; then
+    ICON="󰕿 "
+fi
+
+echo "$ICON$VOLUME%"
