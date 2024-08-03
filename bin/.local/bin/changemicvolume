@@ -8,7 +8,7 @@ send_notification() {
     then
       notify-send "Mic level: $MIC_LEVEL%" -h int:value:"$MIC_LEVEL" \
         -h string:x-canonical-private-synchronous:sys-notify -u normal \
-        -i "$iDIR/mic.svg" -t 2000 -r 6428
+        -i "$iDIR/mic.svg"
   else
     notify-send "Mic is off: $MIC_LEVEL%" -h int:value:"$MIC_LEVEL" \
       -h string:x-canonical-private-synchronous:sys-notify -u normal \
