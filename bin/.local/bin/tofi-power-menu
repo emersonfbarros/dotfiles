@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-chosen=$(printf "  Power Off\n  Restart\n󰍃  Log Out\n  Lock\n󰒲 Sleep" | tofi --prompt-text "Power Menu:  ")
+chosen=$(printf "  Power Off\n  Restart\n󰍃  Log Out\n  Lock\n󰒲  Sleep" | tofi --prompt-text "Power Menu:  ")
 
 case "$chosen" in
 	"  Power Off") systemctl poweroff ;;
 	"  Restart") systemctl reboot ;;
-	"󰍃  Log Out") Hyprland exit ;;
-	"  Lock") pidof hyprlock || hyprlock;;
-	"󰒲 Sleep") pidof hyprlock || hyprlock && systemctl suspend ;;
+	"󰍃  Log Out") sway exit ;;
+	"  Lock") swaylock -f -c 000000;;
+	"󰒲  Sleep") swaylock -f -c 000000 && systemctl suspend ;;
 	*) exit 1 ;;
 esac
