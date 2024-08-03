@@ -53,9 +53,7 @@ return {
     -- Some stuff
     {
       '<leader><leader>',
-      function()
-        require('telescope.builtin').buffers()
-      end,
+      "<cmd>Telescope buffers<CR>",
       desc = '[ ] Find existing buffers',
     },
     {
@@ -81,23 +79,17 @@ return {
     },
     {
       '<leader>sf',
-      function()
-        require('telescope.builtin').find_files()
-      end,
+      "<cmd>Telescope find_files<CR>",
       desc = '[S]earch [F]iles',
     },
     {
       '<leader>sg',
-      function()
-        require('telescope.builtin').live_grep()
-      end,
+      "<cmd>Telescope live_grep<CR>",
       desc = '[S]earch by [G]rep',
     },
     {
       '<leader>sw',
-      function()
-        require('telescope.builtin').grep_string()
-      end,
+      "<cmd>Telescope grep_string<CR>",
       desc = '[S]earch current [W]ord',
     },
     {
@@ -109,59 +101,43 @@ return {
     },
     {
       '<leader>sD',
-      function()
-        require('telescope.builtin').diagnostics()
-      end,
+      "<cmd>Telescope diagnostics<CR>",
       desc = '[S]earch workspace [D]iagnostics',
     },
     {
       '<leader>sk',
-      function()
-        require('telescope.builtin').keymaps()
-      end,
+      "<cmd>Telescope keymaps<CR>",
       desc = '[S]earch [K]eymaps',
     },
     {
       '<leader>sh',
-      function()
-        require('telescope.builtin').help_tags()
-      end,
+      "<cmd>Telescope help_tags<CR>",
       desc = '[S]earch [H]elp',
     },
     {
       '<leader>sr',
-      function()
-        require('telescope.builtin').registers()
-      end,
+      "<cmd>Telescope registers<CR>",
       desc = '[S]earch [R]egisters',
     },
     -- Git stuff
     {
       '<leader>gf',
-      function()
-        require('telescope.builtin').git_files()
-      end,
+      "<cmd>Telescope git_files<CR>",
       desc = '[G]it [F]iles',
     },
     {
       '<leader>gc',
-      function()
-        require('telescope.builtin').git_commits()
-      end,
+      "<cmd>Telescope git_commits<CR>",
       desc = '[G]it [C]ommits',
     },
     {
       '<leader>gs',
-      function()
-        require('telescope.builtin').git_status()
-      end,
+      "<cmd>Telescope git_status<CR>",
       desc = '[G]it [S]tatus',
     },
     {
       '<leader>gS',
-      function()
-        require('telescope.builtin').git_stash()
-      end,
+      "<cmd>Telescope git_stash<CR>",
       desc = '[G]it [S]tashes',
     },
   },
