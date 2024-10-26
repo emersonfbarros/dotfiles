@@ -4,6 +4,7 @@ return {
     '<leader>;',
     mode = { 'n', 'v' },
     '<cdm>Arrow open<CR>',
+    desc = 'Arrow open',
   },
   opts = {
     show_icons = true,
