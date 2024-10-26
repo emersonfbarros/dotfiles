@@ -1,10 +1,27 @@
 ---@return table
 return {
-  tsserver = {},
+  ts_ls = {},
   dockerls = {},
   docker_compose_language_service = {},
   bashls = {},
   jsonls = {},
+  omnisharp = {
+    handlers = {
+      ['textDocument/definition'] = function(...)
+        return require('omnisharp_extended').handler(...)
+      end,
+    },
+    keys = {
+      {
+        'gd',
+        require('omnisharp_extended').telescope_lsp_definitions(),
+        desc = 'Goto Definition',
+      },
+    },
+    enable_roslyn_analyzers = true,
+    organize_imports_on_format = true,
+    enable_import_completion = true,
+  },
   marksman = {},
   gopls = {
     settings = {
