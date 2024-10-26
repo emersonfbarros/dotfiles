@@ -10,7 +10,7 @@ return {
     { '<leader>gg', '<cmd>Neogit kind=vsplit<CR>', desc = '[G]it Neo[g]it' },
   },
   opts = {
-    graph_style = 'unicode',
+    graph_style = 'kitty',
     signs = {
       hunk = { '', '' },
       item = { '', '' },
