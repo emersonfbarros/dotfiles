@@ -1,0 +1,11 @@
+#! /bin/bash
+
+if [ -n "$1" ]; then
+  file=$1
+else
+  file=$(selectfile)
+fi
+
+if [ -n "$file" ]; then
+  xdg-open "$file"
+fi

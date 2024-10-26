@@ -1,0 +1,90 @@
+#! /bin/bash
+
+# Default values
+NODE="http://localhost:8080"
+ENDPOINT="hex"
+SC_ADDRESS=""
+FUNC_NAME=""
+ARGS=()
+ARGS_PROVIDED=false
+
+# Function to display usage
+usage() {
+  echo "Usage: $0 --node <node> --endpoint <endpoint> --scAddress <scAddress> --funcName <funcName> [--args <args>]"
+  exit 1
+}
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+  key="$1"
+  case $key in
+  --node)
+    NODE="$2"
+    shift # past argument
+    shift # past value
+    ;;
+  --endpoint)
+    ENDPOINT="$2"
+    shift # past argument
+    shift # past value
+    ;;
+  --scAddress)
+    SC_ADDRESS="$2"
+    shift # past argument
+    shift # past value
+    ;;
+  --funcName)
+    FUNC_NAME="$2"
+    shift # past argument
+    shift # past value
+    ;;
+  --args)
+    ARGS_PROVIDED=true
+    shift
+    while [[ $# -gt 0 && $1 != --* ]]; do
+      ARGS+=("\"$1\"")
+      shift
+    done
+    ;;
+  *)
+    usage
+    ;;
+  esac
+done
+
+# Check if required arguments are provided
+if [ -z "$SC_ADDRESS" ] || [ -z "$FUNC_NAME" ]; then
+  usage
+fi
+
+# Join the arguments into a single string if provided
+if [ "$ARGS_PROVIDED" = true ]; then
+  ARGS_STRING=$(
+    IFS=,
+    echo "${ARGS[*]}"
+  )
+else
+  ARGS_STRING=""
+fi
+
+# Construct the JSON body
+if [ -z "$ARGS_STRING" ]; then
+  BODY="{
+    \"scAddress\":\"$SC_ADDRESS\",
+    \"funcName\":\"$FUNC_NAME\",
+    \"args\":[]
+  }"
+else
+  BODY="{
+    \"scAddress\":\"$SC_ADDRESS\",
+    \"funcName\":\"$FUNC_NAME\",
+    \"args\":[$ARGS_STRING]
+  }"
+fi
+
+# Make the HTTP request
+RESPONSE=$(curl -svX POST "$NODE"/vm/"$ENDPOINT" -H "Content-Type: application/json" -d "$BODY")
+
+# Print the response
+printf "\nFull data:\n"
+echo "$RESPONSE" | jq
