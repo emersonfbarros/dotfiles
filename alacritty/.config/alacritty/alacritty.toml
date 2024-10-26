@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/rose-pine-theme.toml"]
+general.import = ["~/.config/alacritty/rose-pine-theme.toml"]
 
 [cursor]
 style = "Block"
