@@ -1,6 +1,6 @@
 return {
   'RRethy/vim-illuminate',
-  event = 'LspAttach',
+  event = 'VeryLazy',
   config = function()
     require('illuminate').configure {
       filetypes_denylist = {
@@ -11,6 +11,9 @@ return {
         'neotest-output-panel',
         'lazy',
         'trouble',
+        'mason',
+        'help',
+        'NvimTree',
       },
       min_count_to_highlight = 2,
     }

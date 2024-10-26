@@ -28,7 +28,7 @@ return {
       yaml = { 'prettier' },
       markdown = { 'prettier' },
       lua = { 'stylua' },
-      sh = { 'shellcheck' },
+      sh = { 'shfmt' },
       proto = { 'buf' },
     },
     format_on_save = nil,
