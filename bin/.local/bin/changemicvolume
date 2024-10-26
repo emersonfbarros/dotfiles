@@ -4,11 +4,10 @@ iDIR="$HOME/.config/mako/icons"
 
 send_notification() {
   MIC_LEVEL=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print $2*100}')
-  if [[ MIC_LEVEL -gt 0 ]]
-    then
-      notify-send "Mic level: $MIC_LEVEL%" -h int:value:"$MIC_LEVEL" \
-        -h string:x-canonical-private-synchronous:sys-notify -u normal \
-        -i "$iDIR/mic.svg"
+  if [[ MIC_LEVEL -gt 0 ]]; then
+    notify-send "Mic level: $MIC_LEVEL%" -h int:value:"$MIC_LEVEL" \
+      -h string:x-canonical-private-synchronous:sys-notify -u normal \
+      -i "$iDIR/mic.svg"
   else
     notify-send "Mic is off: $MIC_LEVEL%" -h int:value:"$MIC_LEVEL" \
       -h string:x-canonical-private-synchronous:sys-notify -u normal \
@@ -18,11 +17,11 @@ send_notification() {
 
 case $1 in
 up)
-    wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 5%+
-    send_notification
-    ;;
+  wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 5%+
+  send_notification
+  ;;
 down)
-    wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-
-    send_notification
-    ;;
+  wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-
+  send_notification
+  ;;
 esac

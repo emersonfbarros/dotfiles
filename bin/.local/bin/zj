@@ -18,6 +18,6 @@ if echo "$SESSION_LIST" | grep -q "^${SESSION_TITLE}$"; then
   # if so, attach to existing session
   zellij attach "${SESSION_TITLE}"
 else
-  # if not, create a new session 
+  # if not, create a new session
   zellij attach -c "${SESSION_TITLE}"
 fi

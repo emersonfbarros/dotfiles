@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
 
 if [[ $# -eq 1 ]]; then
-    SELECTED=$1
+  SELECTED=$1
 else
-    SELECTED=$(fd --exact-depth 1 --type d --color never --hidden \
-      . ~/Repos/dotfiles ~/Repos/work ~/Repos ~/.config ~/.local ~/ \
-      | fzf --tmux 70%)
+  SELECTED=$(fd --exact-depth 1 --type d --color never --hidden \
+    . ~/Repos/dotfiles ~/Repos/work ~/Repos ~/.config ~/.local ~/ |
+    fzf --tmux 70%)
 fi
 
 if [[ -z $SELECTED ]]; then
-    exit 0
+  exit 0
 fi
 
 SESSION_NAME=$(basename "$SELECTED" | tr . _)
 
 if [[ -z $TMUX ]]; then
-    tmux new-session -As "$SESSION_NAME" -c "$SELECTED"
-    exit 0
+  tmux new-session -As "$SESSION_NAME" -c "$SELECTED"
+  exit 0
 fi
 
-if ! tmux has-session -t="$SESSION_NAME" 2> /dev/null; then
-    tmux new-session -ds "$SESSION_NAME" -c "$SELECTED"
+if ! tmux has-session -t="$SESSION_NAME" 2>/dev/null; then
+  tmux new-session -ds "$SESSION_NAME" -c "$SELECTED"
 fi
 
 tmux switch-client -t "$SESSION_NAME"
