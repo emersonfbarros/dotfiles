@@ -6,12 +6,12 @@ return {
     ft = { 'org', 'norg' },
   },
   {
-    'MeanderingProgrammer/markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
-    name = 'render-markdown',
-    config = function()
-      require('render-markdown').setup {}
-    end,
-    ft = { 'markdown' },
+    'MeanderingProgrammer/render-markdown.nvim',
+    ft = 'markdown',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },
+    opts = {},
   },
 }
