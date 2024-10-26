@@ -4,7 +4,7 @@ markup=none
 
 [keyboard_layout]
 comand=$SCRIPT_DIR/keyboard_layout
-interval=15
+interval=5
 
 [mic_volume]
 command=$SCRIPT_DIR/mic_volume

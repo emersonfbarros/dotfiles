@@ -1,8 +1,8 @@
 #!/bin/bash
 
-  MIC_LEVEL=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print $2*100}')
-  if [[ MIC_LEVEL -gt 0 ]]; then
-      echo "󰍬 $MIC_LEVEL%"
-  else
-      echo "󰍭 $MIC_LEVEL%"
-  fi
+MIC_LEVEL=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print $2*100}')
+if [[ MIC_LEVEL -gt 0 ]]; then
+  echo "󰍬 $MIC_LEVEL%"
+else
+  echo "󰍭 $MIC_LEVEL%"
+fi
