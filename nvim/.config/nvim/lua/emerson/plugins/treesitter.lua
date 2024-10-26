@@ -23,7 +23,6 @@ return {
         'typescript',
         'tsx',
         'python',
-        'c_sharp',
         'proto',
         'yaml',
         'markdown',
@@ -41,6 +40,8 @@ return {
         'rust',
         'make',
         'toml',
+        'html',
+        'c_sharp'
       },
       incremental_selection = {
         enable = true,
