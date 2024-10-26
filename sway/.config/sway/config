@@ -40,8 +40,8 @@ workspace 10 output HDMI-A-1
 
 exec swayidle -w \
          timeout 300 'swaylock' \
-         timeout 420 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'systemctl suspend; swaylock'
+         timeout 420 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         timeout 540 'systemctl suspend' before-sleep 'swaylock'
 
 ### input configuration
 
