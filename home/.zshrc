@@ -20,43 +20,6 @@ alias ll='ls -lh --git'
 alias la='ll -a'
 alias lt='ll --tree --level=2'
 
-# Custom functions
-fcd() {
-  cd "$(fd -td -H --exclude .git --exclude node_modules | fzf --height 40% --reverse --border)"
-}
-
-select_file() {
-  fd -tf -H --exclude .git --exclude node_modules \
-    | fzf --tmux 80% \
-    --preview 'bat --color=always --style=header,grid --line-range :500 {}' --preview-window=right,65%
-}
-
-open() {
-  local file
-  if [ -n "$1" ]; then
-    file=$1
-  else
-    file=$(select_file)
-  fi
-
-  if [ -n "$file" ]; then
-    xdg-open "$file"
-  fi
-}
-
-v() {
-  local file
-  if [ -n "$1" ]; then
-    file=$1
-  else
-    file=$(select_file)
-  fi
-
-  if [ -n "$file" ]; then
-    nvim "$file"
-  fi
-}
-
 bindkey -v # Vi mode
 
 # Keybindings
@@ -69,22 +32,6 @@ bindkey "^[[B" history-search-forward
 
 # Colors
 autoload -Uz colors && colors
-
-eval "$(zoxide init zsh)" # Init zoxide
-eval "$(fzf --zsh)" # Fzf integrations
-
-# Fzf rose-pine theme
-export FZF_DEFAULT_OPTS="
-	--color=fg:#908caa,bg:#191724,hl:#ebbcba
-	--color=fg+:#e0def4,bg+:#26233a,hl+:#ebbcba
-	--color=border:#403d52,header:#31748f,gutter:#191724
-	--color=spinner:#f6c177,info:#9ccfd8,separator:#403d52
-	--color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa"
-
-# Load plugins
-source ~/.local/share/zsh/autoseggestions/zsh-autosuggestions.zsh
-source ~/.local/share/zsh/syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.local/share/zsh/fzf-tab/fzf-tab.plugin.zsh
 
 # Completions
 autoload -Uz compinit
@@ -173,5 +120,21 @@ precmd() {
         echo ""
     fi
 }
+
+# Init tools
+# Fzf rose-pine theme
+export FZF_DEFAULT_OPTS="
+	--color=fg:#908caa,bg:#191724,hl:#ebbcba
+	--color=fg+:#e0def4,bg+:#26233a,hl+:#ebbcba
+	--color=border:#403d52,header:#31748f,gutter:#191724
+	--color=spinner:#f6c177,info:#9ccfd8,separator:#403d52
+	--color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa"
+eval "$(fzf --zsh)" # Fzf integrations
+eval "$(zoxide init zsh)" # Init zoxide
+
+# Load plugins
+source ~/.local/share/zsh/fzf-tab/fzf-tab.plugin.zsh
+source ~/.local/share/zsh/autoseggestions/zsh-autosuggestions.zsh
+source ~/.local/share/zsh/syntax-highlighting/zsh-syntax-highlighting.zsh
 
 eval "$(starship init zsh)" # Init starship
